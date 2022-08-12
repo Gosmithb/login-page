@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #e5e5e5;
+    font-family: 'Roboto Slab', serif;
+}
+
+.tarjeta-registro {
+    max-width: 800px;
+    width: 90%;
+    margin: auto;
+    padding: 40px;
+}
