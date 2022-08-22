@@ -1,19 +1,41 @@
-
+import { Formulario, Label, Button,  } from "../elementos/Forms"
+import InputComponent from '../components/InputComponent';
+import { useState } from 'react';
 
 
 export const Login = () => {
+  const [correo, setCorreo] = useState({campo: '', valido: null});
+  const [password, setPassword] = useState({campo: '', valido: null})
+
   return (
-    <div className="tarjeta-login">
+    <main>
+      <Formulario className="">
+        {/* Correo */}
+        <InputComponent 
+          estado={correo}
+          setEstado={setCorreo}
+          tipo="email"
+          label="Correo"
+          placeholder="nombre@yopmail.com"
+          name="correo"
+          leyendaError="Formato no valido"
+          expresionRegular={/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/}
+        />
 
-      <div className="datos-login">
+        {/* Password */}
+        <InputComponent 
+          estado={password}
+          setEstado={setPassword}
+          tipo="password"
+          label="Contraseña"
+          placeholder="****"
+          name="correo"
+          leyendaError="Formato no valido"
+          expresionRegular={/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/}
+        />
 
-        <label htmlFor="username">Username</label>
-        <input type="text" />
-        <label htmlFor="password">Contraseña</label>
-        <input type="password" />
-
-      </div>
-    </div>
+      </Formulario>
+    </main>
   )
 }
 

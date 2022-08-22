@@ -2,16 +2,16 @@ import { faCircleCheck, faTimesCircle } from "@fortawesome/free-solid-svg-icons"
 import { GrupoInput, IconoValidacion, Input, Label, LeyendaError } from "../elementos/Forms"
 import React from 'react';
 
-type InputComp = {
-    estado: any;
-    setEstado: any;
-    tipo: string;
-    label: string;
-    placeholder: string;
-    name: string;
-    leyendaError: string;
-    expresionRegular?: any;
-    funcion?: any;
+interface InputComp {
+    estado: any,
+    setEstado: any,
+    tipo: string,
+    label: string,
+    placeholder: string,
+    name: string,
+    leyendaError: string,
+    expresionRegular?: any,
+    funcion?: any,
 }
 
 const InputComponent = ({ estado, setEstado, tipo, label, placeholder, name, leyendaError, expresionRegular, funcion }: InputComp) => {

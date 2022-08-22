@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { Formulario, Label, Button, ContenedorTerminos, ContenedorBotonCentrado, MensajeExito, MensajeError } from "../elementos/Forms";
+import { collection, addDoc } from 'firebase/firestore';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Formulario, Label, Button, ContenedorTerminos, ContenedorBotonCentrado, MensajeExito, MensajeError } from "../elementos/Forms";
+import { useState } from "react";
+import db from '../firebase/config';
 import InputComponent from '../components/InputComponent';
-import { NuevoUsuario } from '../nuevoUsuario';
 
 type validarPasswordType = {
   campo: string;
@@ -45,22 +46,35 @@ export const Register = () => {
 
   }
 
-  const handleOnChangeTerminos = (e: any) => {
+  const handleOnChangeTerminos = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTerminos(e.target.checked)
   }
 
-  const onSubmit = (e: any) => {
+
+  const onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (usuario.valido === 'true' && nombre.valido === 'true' && password.valido === 'true' && password2.valido === 'true' && correo.valido === 'true' && terminos && telefono.valido === 'true') {
       setFormularioValido('true');
-      setUsuario({ campo: '', valido: null });
-      setNombre({ campo: '', valido: null });
-      setPassword({ campo: '', valido: null });
-      setPassword2({ campo: '', valido: null });
-      setCorreo({ campo: '', valido: null });
-      setTelefono({ campo: '', valido: null });
-      setTerminos(false);
+      //Se actualiza usuario en base de datos
+      addDoc(collection(db, 'usuarios'), {
+        usuario: usuario.campo,
+        nombre: nombre.campo,
+        password: password.campo,
+        correo: correo.campo,
+        telefono: telefono.campo
+      });
+
+      //Limpiar campos despues de actualizar tabla
+      setUsuario({ campo: '', valido: null })
+      setNombre({ campo: '', valido: null })
+      setPassword({ campo: '', valido: null })
+      setPassword2({ campo: '', valido: null })
+      setCorreo({ campo: '', valido: null })
+      setTelefono({ campo: '', valido: null })
+      setTerminos(false)
+      setFormularioValido('');
+
     } else {
       setFormularioValido('false');
     }
@@ -167,16 +181,7 @@ export const Register = () => {
 
         <ContenedorBotonCentrado>
           <Button type="submit">Enviar</Button>
-          {formularioValido === 'true' &&
-            <NuevoUsuario
-              usuario={usuario.campo}
-              nombre={nombre.campo}
-              password={password.campo}
-              correo={correo.campo}
-              telefono={telefono.campo}
-
-            />
-          }
+          {formularioValido === 'true' && <MensajeExito>Formulario enviado correctamente</MensajeExito>}
         </ContenedorBotonCentrado>
 
       </Formulario>
