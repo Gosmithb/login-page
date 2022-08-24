@@ -6,19 +6,19 @@ import { useState } from "react";
 import db from '../firebase/config';
 import InputComponent from '../components/InputComponent';
 
-type validarPasswordType = {
+interface validarPasswordType {
   campo: string;
-  valido: any;
+  valido: string;
 };
 
 export const Register = () => {
 
-  const [usuario, setUsuario] = useState({ campo: '', valido: null });
-  const [nombre, setNombre] = useState({ campo: '', valido: null });
-  const [password, setPassword] = useState({ campo: '', valido: null });
-  const [password2, setPassword2] = useState({ campo: '', valido: null });
-  const [correo, setCorreo] = useState({ campo: '', valido: null });
-  const [telefono, setTelefono] = useState({ campo: '', valido: null });
+  const [usuario, setUsuario] = useState({ campo: '', valido: 'null' });
+  const [nombre, setNombre] = useState({ campo: '', valido: 'nul' });
+  const [password, setPassword] = useState({ campo: '', valido: 'null' });
+  const [password2, setPassword2] = useState({ campo: '', valido: 'null' });
+  const [correo, setCorreo] = useState({ campo: '', valido: 'null' });
+  const [telefono, setTelefono] = useState({ campo: '', valido: 'null' });
   const [terminos, setTerminos] = useState(false);
   const [formularioValido, setFormularioValido] = useState('');
 
@@ -66,12 +66,12 @@ export const Register = () => {
       });
 
       //Limpiar campos despues de actualizar tabla
-      setUsuario({ campo: '', valido: null })
-      setNombre({ campo: '', valido: null })
-      setPassword({ campo: '', valido: null })
-      setPassword2({ campo: '', valido: null })
-      setCorreo({ campo: '', valido: null })
-      setTelefono({ campo: '', valido: null })
+      setUsuario({ campo: '', valido: 'null' })
+      setNombre({ campo: '', valido: 'null' })
+      setPassword({ campo: '', valido: 'null' })
+      setPassword2({ campo: '', valido: 'null' })
+      setCorreo({ campo: '', valido: 'null' })
+      setTelefono({ campo: '', valido: 'null' })
       setTerminos(false)
       setFormularioValido('');
 

@@ -1,19 +1,28 @@
+import { collection, addDoc } from 'firebase/firestore';
 import { Formulario, Label, Button,  } from "../elementos/Forms"
-import InputComponent from '../components/InputComponent';
 import { useState } from 'react';
+import db from "../firebase/config";
+import InputComponent from '../components/InputComponent';
 
+const usuariosRef = db.collection('usuarios')
 
 export const Login = () => {
-  const [correo, setCorreo] = useState({campo: '', valido: null});
-  const [password, setPassword] = useState({campo: '', valido: null})
+  const [correoInicio, setCorreoInicio] = useState({campo: '', valido: null});
+  const [passwordInicio, setPasswordInicio] = useState({campo: '', valido: null})
+
+  const onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    db.collection('usuarios').where('correo', '==', correoInicio).onSnapshot();
+  }
 
   return (
-    <main>
-      <Formulario className="">
+    <main className="tarjeta-login">
+      <Formulario onSubmit={onSubmit}>
         {/* Correo */}
         <InputComponent 
-          estado={correo}
-          setEstado={setCorreo}
+          estado={correoInicio}
+          setEstado={setCorreoInicio}
           tipo="email"
           label="Correo"
           placeholder="nombre@yopmail.com"
@@ -24,8 +33,8 @@ export const Login = () => {
 
         {/* Password */}
         <InputComponent 
-          estado={password}
-          setEstado={setPassword}
+          estado={passwordInicio}
+          setEstado={setPasswordInicio}
           tipo="password"
           label="Contraseña"
           placeholder="****"
@@ -33,6 +42,8 @@ export const Login = () => {
           leyendaError="Formato no valido"
           expresionRegular={/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/}
         />
+
+
 
       </Formulario>
     </main>
