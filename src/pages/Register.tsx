@@ -1,8 +1,8 @@
 import { collection, addDoc } from 'firebase/firestore';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Formulario, Label, Button, ContenedorTerminos, ContenedorBotonCentrado, MensajeExito, MensajeError } from "../elementos/Forms";
-import { useState } from "react";
+import { Formulario, Label, Button, ContenedorTerminos, ContenedorBotonCentrado, MensajeExito, MensajeError } from '../elementos/Forms';
+import { useState } from 'react';
 import db from '../firebase/config';
 import InputComponent from '../components/InputComponent';
 
@@ -43,7 +43,6 @@ export const Register = () => {
         });
       }
     }
-
   }
 
   const handleOnChangeTerminos = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +52,8 @@ export const Register = () => {
 
   const onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    
+    setFormularioValido('');
     if (usuario.valido === 'true' && nombre.valido === 'true' && password.valido === 'true' && password2.valido === 'true' && correo.valido === 'true' && terminos && telefono.valido === 'true') {
       setFormularioValido('true');
       //Se actualiza usuario en base de datos
@@ -73,8 +73,7 @@ export const Register = () => {
       setCorreo({ campo: '', valido: 'null' })
       setTelefono({ campo: '', valido: 'null' })
       setTerminos(false)
-      setFormularioValido('');
-
+      
     } else {
       setFormularioValido('false');
     }
@@ -172,7 +171,8 @@ export const Register = () => {
           </Label>
         </ContenedorTerminos>
 
-        {formularioValido === 'false' && <MensajeError>
+        {formularioValido === 'false' && 
+        <MensajeError>
           <p>
             <FontAwesomeIcon icon={faExclamationTriangle} />
             <b>Error:</b> Favor de rellenar el formulario correctamente
